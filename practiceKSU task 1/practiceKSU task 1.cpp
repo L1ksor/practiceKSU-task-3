@@ -1,6 +1,7 @@
-﻿/*
-Добавьте на ось подписей границы столбцов. 
-Например, если в первый столбец отнесены элементы от наименьшего до 1,23, 
+﻿
+/*
+Добавьте на ось подписей границы столбцов.
+Например, если в первый столбец отнесены элементы от наименьшего до 1,23,
 во второй — от 1,23 до 2,34 и т. д., желаемый результат:
 
      8|********
@@ -9,7 +10,7 @@
 2.34
      6|******
 
-     
+
 */
 #include <iostream>
 #include <vector>
@@ -21,16 +22,16 @@ using namespace std;
 const size_t SCREEN_WIDTH = 80;
 const size_t MAX_ASTERISK = SCREEN_WIDTH - 3 - 1;
 
-vector<double> input_numbers(size_t count) 
+vector<double> input_numbers(size_t count)
 {
     vector<double> result(count);
-    for (size_t i = 0; i < count; i++) 
+    for (size_t i = 0; i < count; i++)
         cin >> result[i];
-    
+
     return result;
 }
 
-void find_minmax(const vector<double>& numbers, double& min, double& max) 
+void find_minmax(const vector<double>& numbers, double& min, double& max)
 {
     min = numbers[0];
     max = numbers[0];
@@ -99,16 +100,19 @@ int main()
     size_t number_count, bin_count;
 
     cerr << "Enter number count: ";
-    cin >> number_count ; 
+    cin >> number_count;
     const auto numbers = input_numbers(number_count);
 
     cerr << "Enter number bins: ";
     cin >> bin_count;
 
     const auto bins = make_histogram(numbers, bin_count);
-    
+
     show_histogram_text(bins, bin_count);
 }
+
+
+
 
 
 
