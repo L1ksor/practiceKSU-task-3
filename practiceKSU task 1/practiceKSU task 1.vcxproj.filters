@@ -18,9 +18,15 @@
     <ClCompile Include="practiceKSU task 1.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="histogram.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="practiceKSU task 1.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="histogram.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
