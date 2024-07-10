@@ -4,9 +4,11 @@
 #include <iomanip>
 #include <algorithm>
 #include <string>
-using namespace std;
-
+#include <set>
+#include <sstream>
+#include "histogram.h"
 #include "practiceKSU task 1.h"
+using namespace std;
 
 const size_t SCREEN_WIDTH = 80;
 const size_t MAX_ASTERISK = SCREEN_WIDTH - 3 - 1;
@@ -20,28 +22,14 @@ vector<double> input_numbers(size_t count)
     return result;
 }
 
-void find_minmax(const vector<double>& numbers, double& min, double& max)
-{
-    min = numbers[0];
-    max = numbers[0];
-    for (double x : numbers)
-    {
-        if (x < min)
-            min = x;
-        else if (x > max)
-            max = x;
-    }
-}
-
-vector<size_t> make_histogram(const vector<double>& numbers, size_t bin_count)
+pair<vector<size_t>, set<double>> make_histogram(const vector<double>& numbers, size_t bin_count)
 {
     vector<size_t> bins(bin_count);
-
+    set<double> range_num;
     double min, max;
     find_minmax(numbers, min, max);
 
     double bin_size = (max - min) / bin_count;
-
     int cnt = 0;
     for (size_t i = 0; i < numbers.size(); i++)
     {
@@ -54,18 +42,24 @@ vector<size_t> make_histogram(const vector<double>& numbers, size_t bin_count)
             {
                 bins[j]++;
                 found = true;
+                
             }
+            range_num.insert(hi);
         }
         if (!found)
             bins[bin_count - 1]++;
     }
-    return bins;
+    
+    auto res = make_pair(bins, range_num);
+    
+    return res;
 }
 
-void show_histogram_text(const std::vector<size_t>& bins)
+void show_histogram_text(const vector<size_t>& bins, set<double> range_num)
 {
     size_t max_bins = *max_element(bins.begin(), bins.end());
     size_t bin_count = bins.size();
+    auto it = range_num.begin();
     for (int i = 0; i < bin_count; i++)
     {
 
@@ -81,6 +75,11 @@ void show_histogram_text(const std::vector<size_t>& bins)
             cout << " ";
 
         cout << bins[i] << '|' << stars << endl;
+        if (i != bin_count - 1)
+        {
+            cout << setprecision(3) << *it << endl;
+            it++;
+        }
     }
 }
 
@@ -99,6 +98,14 @@ void svg_end()
     cout << "</svg>\n";
 }
 
+string format_number(double num) 
+{
+    ostringstream stream;
+    stream << setprecision(3) << num;
+    return stream.str();
+}
+
+
 void svg_text(double left, double baseline, string text)
 {
     cout << "<text x='" << left << "' y='" << baseline << "'>" << text << "</text>" << '\n';
@@ -108,39 +115,41 @@ void svg_rect(double x, double y, double width, double height, string stroke = "
     printf("<rect x='%lf' y='%lf' width='%lf' height='%lf' stroke='%s' fill='%s'/>\n", x, y, width, height, stroke.c_str(), fill.c_str());
 }
 
-void show_histogram_svg(const vector<size_t>& bins) 
+void show_histogram_svg(const vector<size_t>& bins, set<double> range_num)
 {
-    
     const auto IMAGE_WIDTH = 400;
     const auto IMAGE_HEIGHT = 300;
     const auto TEXT_BASELINE = 20;
     const auto TEXT_WIDTH = 50;
     const auto BIN_HEIGHT = 30;
     double top = 0;
+    auto range = range_num.begin();
     size_t max_bins = *max_element(bins.begin(), bins.end());
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
-    for (auto bin : bins) 
+    for (int i = 0; i < bins.size(); i++) 
     {
         size_t text_left = 30;
-        if (bin < 100)
+        if (bins[i] < 100)
             text_left = 40;
-        else if (bin < 10) 
+        else if (bins[i] < 10)
             text_left = 50;
 
         size_t block_width = 10;
         if (max_bins > MAX_ASTERISK)
-            block_width = MAX_ASTERISK * (static_cast<double>(bin) / max_bins);
+            block_width = MAX_ASTERISK * (static_cast<double>(bins[i]) / max_bins);
 
-        svg_text(text_left, top + TEXT_BASELINE, to_string(bin));
-
-        const double bin_width = block_width * bin;
+        svg_text(text_left, top + TEXT_BASELINE, to_string(bins[i]));
+        const double bin_width = block_width * bins[i];
         svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT);
+        if (i != bins.size() - 1)
+        {
+            svg_text(text_left-30, top + TEXT_BASELINE+13, format_number(*range));
+            range++;
+        }
         top += BIN_HEIGHT;
     }
     svg_end();
 }
-
-
 
 int main()
 {
@@ -153,8 +162,9 @@ int main()
     cerr << "Enter number bins: ";
     cin >> bin_count;
 
-    const auto bins = make_histogram(numbers, bin_count);
-
-    show_histogram_svg(bins);
+    const pair<vector<size_t>, set<double>> pair = make_histogram(numbers, bin_count);
+    auto bins = pair.first;
+    auto range_num = pair.second;
+    show_histogram_svg(bins, range_num);
 }
 

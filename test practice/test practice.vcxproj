@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{c02dc45c-ff95-400f-98b9-939ee3f9145c}</ProjectGuid>
-    <RootNamespace>practiceKSUtask1</RootNamespace>
+    <ProjectGuid>{84105ebf-0a6d-4728-a097-fb8f9b4d326e}</ProjectGuid>
+    <RootNamespace>testpractice</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,12 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="histogram.cpp" />
-    <ClCompile Include="practiceKSU task 1.cpp" />
+    <ClInclude Include="..\practiceKSU task 1\histogram.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="histogram.h" />
-    <ClInclude Include="practiceKSU task 1.h" />
+    <ClCompile Include="..\practiceKSU task 1\histogram.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
