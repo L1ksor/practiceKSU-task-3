@@ -1,4 +1,8 @@
 #pragma once
+
+const size_t SCREEN_WIDTH = 80;
+const size_t MAX_ASTERISK = SCREEN_WIDTH - 3 - 1;
+
 using namespace std;
 vector<double> input_numbers(size_t count);
 
@@ -18,4 +22,3 @@ void show_histogram_svg(const vector<size_t>& bins, set<double> range_num);
 
 void svg_rect(double x, double y, double width, double height, string stroke, string fill);
 
-string format_number(double num);

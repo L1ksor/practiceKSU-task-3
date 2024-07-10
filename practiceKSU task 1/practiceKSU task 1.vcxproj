@@ -128,9 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="histogram.cpp" />
+    <ClCompile Include="histogram_svg.cpp" />
     <ClCompile Include="practiceKSU task 1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="histogram_svg.h" />
     <ClInclude Include="histogram.h" />
     <ClInclude Include="practiceKSU task 1.h" />
   </ItemGroup>
