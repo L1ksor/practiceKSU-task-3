@@ -5,6 +5,8 @@
 #include <sstream>
 #include "histogram_svg.h"
 
+using namespace std;
+
 void svg_begin(double width, double height)
 {
     cout << "<?xml version='1.0' encoding='UTF-8'?>\n";

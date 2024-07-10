@@ -3,7 +3,6 @@
 const size_t SCREEN_WIDTH = 80;
 const size_t MAX_ASTERISK = SCREEN_WIDTH - 3 - 1;
 
-using namespace std;
 vector<double> input_numbers(size_t count);
 
 void find_minmax(const vector<double>& numbers, double& min, double& max);
