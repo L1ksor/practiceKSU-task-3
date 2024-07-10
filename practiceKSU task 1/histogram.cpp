@@ -1,3 +1,5 @@
+
+
 #include "histogram.h"
 
 void find_minmax(const vector<double>& numbers, double& min, double& max)
@@ -14,4 +16,11 @@ void find_minmax(const vector<double>& numbers, double& min, double& max)
                 max = x;
         }
     }
+}
+
+string format_number_svg(double num)
+{
+    ostringstream stream;
+    stream << setprecision(3) << num;
+    return stream.str();
 }

@@ -1,11 +1,8 @@
-#include <iostream>
-#include <vector>
-#include <set>
-#include <iomanip>
-#include <sstream>
-#include "histogram_svg.h"
 
-using namespace std;
+
+#include "histogram_svg.h"
+#include "histogram.h"
+
 
 void svg_begin(double width, double height)
 {
@@ -22,14 +19,6 @@ void svg_end()
     cout << "</svg>\n";
 }
 
-string format_number_svg(double num)
-{
-    ostringstream stream;
-    stream << setprecision(3) << num;
-    return stream.str();
-}
-
-
 void svg_text(double left, double baseline, string text)
 {
     cout << "<text x='" << left << "' y='" << baseline << "'>" << text << "</text>" << '\n';
@@ -41,6 +30,7 @@ void svg_rect(double x, double y, double width, double height, string stroke, st
 
 void show_histogram_svg(const vector<size_t>& bins, set<double> range_num)
 {
+
     const auto IMAGE_WIDTH = 400;
     const auto IMAGE_HEIGHT = 300;
     const auto TEXT_BASELINE = 20;

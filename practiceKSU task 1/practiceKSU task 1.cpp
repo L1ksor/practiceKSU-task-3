@@ -1,14 +1,8 @@
 ﻿
-#include <iostream>
-#include <vector>
-#include <iomanip>
-#include <algorithm>
-#include <string>
-#include <set>
+
 #include "histogram.h"
 #include "practiceKSU task 1.h"
 using namespace std;
-
 vector<double> input_numbers(size_t count)
 {
     vector<double> result(count);
